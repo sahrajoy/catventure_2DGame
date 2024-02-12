@@ -46,21 +46,36 @@ public class Player extends Entity{
 	}
 	
 	public void update() {
-		if(keyH.upPressed == true) {
-			direction = "up";
-			y -= speed;
-		}
-		else if(keyH.downPressed == true) {
-			direction = "down";
-			y += speed;
-		}
-		else if(keyH.leftPressed == true) {
-			direction = "left";
-			x -= speed;
-		}
-		else if(keyH.rightPressed == true) {
-			direction = "right";
-			x += speed;
+		// thats check if a key is pressed so the charakter is not looking like he is moving 
+		if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
+			// move the charakter
+			if(keyH.upPressed == true) {
+				direction = "up";
+				y -= speed;
+			}
+			else if(keyH.downPressed == true) {
+				direction = "down";
+				y += speed;
+			}
+			else if(keyH.leftPressed == true) {
+				direction = "left";
+				x -= speed;
+			}
+			else if(keyH.rightPressed == true) {
+				direction = "right";
+				x += speed;
+			}
+			// set the spriteNum for showing the different images(up1, up2, etc.) when the charakter is moving
+			spriteCounter++;
+			if(spriteCounter >12) {
+				if(spriteNum == 1) {
+					spriteNum = 2;
+				}
+				else if (spriteNum == 2) {
+					spriteNum = 1;
+				}
+				spriteCounter = 0;
+			}
 		}
 	}
 	
@@ -72,16 +87,37 @@ public class Player extends Entity{
 		
 		switch(direction) {
 		case "up":
-			image = up1;
+			// shows the different images(up1, up2) when the charakter is moving
+			if(spriteNum == 1) {
+				image = up1;
+			}
+			if(spriteNum == 2) {
+				image = up2;
+			}			
 			break;
 		case "down":
-			image = down1;
+			if(spriteNum == 1) {
+				image = down1;
+			}
+			if(spriteNum == 2) {
+				image = down2;
+			}	
 			break;
 		case "left":
-			image = left1;
+			if(spriteNum == 1) {
+				image = left1;
+			}
+			if(spriteNum == 2) {
+				image = left2;
+			}	
 			break;
 		case "right":
-			image = right1;
+			if(spriteNum == 1) {
+				image = right1;
+			}
+			if(spriteNum == 2) {
+				image = right2;
+			}	
 			break;
 		}
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
